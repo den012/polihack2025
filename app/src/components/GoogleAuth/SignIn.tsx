@@ -26,10 +26,12 @@ const SignIn: React.FC = () => {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                  name: user.displayName,
-                  email: user.email,
-                }),
+                name: user.displayName,
+                email: user.email,
+                // body: JSON.stringify({
+                //   name: user.displayName,
+                //   email: user.email,
+                // }),
             });
         } catch (error) {
             console.error("Error during sign-in: ", error);
