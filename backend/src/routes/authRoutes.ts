@@ -1,15 +1,8 @@
 import express from 'express';
-import { Router } from 'express';
-import { loginUser, getProtectedData, logoutUser, getUserInfo } from '../controller/authController';
-import { authMiddleware } from '../middleware/authMiddleware';
+import { googleAuth } from '../controller/authController';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/login', loginUser);
-router.post('/logout', logoutUser);
-
-router.get('/user', authMiddleware, getUserInfo);
-
-router.get('/protected', authMiddleware, getProtectedData);
+router.post('/google', googleAuth);
 
 export default router;

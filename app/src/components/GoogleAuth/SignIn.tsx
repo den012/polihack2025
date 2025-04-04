@@ -12,30 +12,35 @@ const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
 
-    const handleGoogleSignIn = async () => {
+    const handleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-
-            const token = await result.user.getIdToken(true);
-            localStorage.setItem('firebaseToken', token);
-
-            await axios.post(
-                `${API_URL}/api/auth/login`, 
-                {token}, 
-                {withCredentials: true}
-            );
+            const user = result.user;
 
             navigate('/home');
-        } catch(error) {
-            console.log('Login error!');
+
+            console.log("User Info: ", user.displayName, user.email);
+
+            await axios.post(`${API_URL}/api/auth/google`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name: user.displayName,
+                  email: user.email,
+                }),
+            });
+        } catch (error) {
+            console.error("Error during sign-in: ", error);
         }
-    };
+    }
 
     return(
         <div className="flex flex-col m-10">
             <h1>Login</h1>
             <button
-                onClick={handleGoogleSignIn}
+                onClick={handleLogin}
             >Sign in here!</button>
         </div>
     )
