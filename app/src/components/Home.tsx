@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 
 import { useAuth } from './hooks/useAuth';
 
 const Home: React.FC = () => {
-    const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
     const user = useAuth();
