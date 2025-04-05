@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 
     const fetchWords = async () => {
         try {
-            const response = await axios.get(`${API_URL}/getWords`);
+            const response = await axios.get(`https://7ef5-5-2-197-133.ngrok-free.app/getWords`);
             console.log(response.data);
         } catch (error) {
             console.error('Error fetching words:', error);
