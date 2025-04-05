@@ -12,6 +12,30 @@ const Events: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
+    // const fetchEvents = async (categoryName?: string) => {
+    //     try {
+    //         const url = categoryName
+    //             ? `${API_URL}/api/events/eventsByCategory/${categoryName}`
+    //             : `${API_URL}/api/events/allEvents`;
+    //         const response = await axios.get(url, {
+    //             headers: {
+    //                 "ngrok-skip-browser-warning": "true"
+    //             }
+    //         });
+
+
+    //         if (!categoryName) {
+    //             setAllEvents(response.data); // Store all events when no category is selected
+    //         }
+
+    //         setEvents(response.data); // Update events for the selected category
+    //         setFilteredEvents(response.data); // Initialize filtered events
+    //     } catch (error) {
+    //         console.error("Error fetching events: ", error);
+    //     }
+    // };
+
+
     const fetchEvents = async (categoryName?: string) => {
         try {
             const url = categoryName
@@ -22,13 +46,20 @@ const Events: React.FC = () => {
                     "ngrok-skip-browser-warning": "true"
                 }
             });
+    
+            const events = response.data.map((event: any) => ({
+                ...event,
+                name: event.name || 'Unnamed Event', // Ensure name is always set
+            }));
 
+            console.log(events);
+    
             if (!categoryName) {
-                setAllEvents(response.data); // Store all events when no category is selected
+                setAllEvents(events); // Store all events when no category is selected
             }
-
-            setEvents(response.data); // Update events for the selected category
-            setFilteredEvents(response.data); // Initialize filtered events
+    
+            setEvents(events); // Update events for the selected category
+            setFilteredEvents(events); // Initialize filtered events
         } catch (error) {
             console.error("Error fetching events: ", error);
         }
@@ -63,13 +94,18 @@ const Events: React.FC = () => {
     
         // Filter events based on the search query
         const baseEvents = selectedCategory ? events : allEvents; // Use events for the selected category or allEvents if no category is selected
-        const filtered = baseEvents.filter((event) =>
-            event.name.toLowerCase().includes(query) ||
-            event.description.toLowerCase().includes(query) ||
-            event.location.toLowerCase().includes(query)
+        // console.log("base", baseEvents) 
+        // console.log("events", events)
+        // console.log("all", allEvents)
+        const filtered = allEvents.filter((event) =>
+            event.name?.toLowerCase().includes(query) ||
+            event.description?.toLowerCase().includes(query) ||
+            event.location?.toLowerCase().includes(query)
         );
+        console.log("filtered", filtered)
         setFilteredEvents(filtered);
     };
+
 
     return (
         <div>
@@ -122,7 +158,7 @@ const Events: React.FC = () => {
                         key={index} // Use event.id as the key
                         className="bg-white shadow-md rounded-lg p-4 w-64"
                     >
-                        <h2 className="text-lg font-bold mb-2">{event.name}</h2>
+                        <h2 className="text-lg font-bold mb-2">{event?.name || 'No name'}</h2>
                         <p className="text-sm text-gray-600 mb-2">
                             {event.description}
                         </p>
