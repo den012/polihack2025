@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
-=======
 import { useState, useEffect } from 'react';
->>>>>>> b2d97b65524cf93f75231529793caadc9a517d23
 
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
@@ -20,19 +17,6 @@ import Logo from '../assets/logo.png'
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-<<<<<<< HEAD
-    const user = useAuth();
-
-
-    const fetchWords = async () => {
-        try {
-            const response = await axios.get('https://66df-5-2-197-133.ngrok-free.app/getWords');
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error fetching words:', error);
-        }
-    };
-=======
     const API_URL = import.meta.env.VITE_API_URL;
 
     const [promotedEvents, setPromotedEvents] = useState<Event[]>([]);
@@ -48,7 +32,6 @@ const Home: React.FC = () => {
         const randomIndex = today.getDate() % messages.length;
         setMessage(messages[randomIndex]);
     }, []);
->>>>>>> b2d97b65524cf93f75231529793caadc9a517d23
 
     const handleLogout = async () => {
         try {
@@ -138,11 +121,6 @@ const Home: React.FC = () => {
                     </div>
                 </nav>
 
-<<<<<<< HEAD
-            <button onClick={fetchWords} className="bg-purple p-2 w-40 h-10 ">Fetch Words</button>
-
-            <button onClick={handleLogout} className="bg-blue-400 p-2 w-40 h-10 ">Logout</button>
-=======
                 {/* Welcome Banner - New section */}
                 <div className="py-4 sm:py-6">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,7 +155,6 @@ const Home: React.FC = () => {
 
                     </div>
                 </div>
->>>>>>> b2d97b65524cf93f75231529793caadc9a517d23
 
 
                 {/* Promoted event */}
