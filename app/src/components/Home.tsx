@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios';
+
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
@@ -7,8 +10,21 @@ import { useAuth } from './hooks/useAuth';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-
     const user = useAuth();
+
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    const [words, setWords] = useState<string[]>([]);
+
+    const fetchWords = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/getWords`);
+            console.log(response.data);
+            setWords(response.data);
+        } catch (error) {
+            console.error('Error fetching words:', error);
+        }
+    };
 
     const handleLogout = async () => {
         try {
@@ -31,6 +47,8 @@ const Home: React.FC = () => {
         <div className="flex flex-col m-10">
             <h1 className="text-7xl text-blue-700">Home page</h1>
             <h1 className="text-5xl text-orange-500">Welcome, {user?.displayName}</h1>
+
+            <button onClick={fetchWords} className="bg-purple p-2 w-40 h-10 ">Fetch Words</button>
 
             <button onClick={handleLogout} className="bg-blue-400 p-2 w-40 h-10 ">Logout</button>
 
