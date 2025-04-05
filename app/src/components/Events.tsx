@@ -52,7 +52,6 @@ const Events: React.FC = () => {
                 name: event.name || 'Unnamed Event', // Ensure name is always set
             }));
 
-            console.log(events);
     
             if (!categoryName) {
                 setAllEvents(events); // Store all events when no category is selected
@@ -97,12 +96,11 @@ const Events: React.FC = () => {
         // console.log("base", baseEvents) 
         // console.log("events", events)
         // console.log("all", allEvents)
-        const filtered = allEvents.filter((event) =>
+        const filtered = baseEvents.filter((event) =>
             event.name?.toLowerCase().includes(query) ||
             event.description?.toLowerCase().includes(query) ||
             event.location?.toLowerCase().includes(query)
         );
-        console.log("filtered", filtered)
         setFilteredEvents(filtered);
     };
 
