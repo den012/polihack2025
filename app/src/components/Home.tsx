@@ -57,7 +57,7 @@ const Home: React.FC = () => {
             <h1 className="text-7xl text-blue-700">Home page</h1>
             <h1 className="text-5xl text-orange-500">Welcome, {user?.displayName}</h1>
 
-            <input type="text" 
+            {/* <input type="text" 
                 placeholder="Enter a word"
                 className="border-2 border-black text-lg"
                 value={word}
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
                 {words.map((wordObj: { id: string; text: string }) => (
                     <p key={wordObj.id}>{wordObj.text}</p>
                 ))}
-            </div>
+            </div> */}
 
             <button onClick={handleLogout} className="bg-blue-400 p-2 w-40 h-10 ">Logout</button>
 
