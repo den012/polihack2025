@@ -4,9 +4,10 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 //database
-// import db from './database/database';
+import db from './database/database';
 
 import authRoutes from './routes/authRoutes';
+import eventRoutes from './routes/eventRoutes';
 
 //routes
 
@@ -24,6 +25,11 @@ app.use(cookieParser());
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 
 app.listen(PORT, () => {
