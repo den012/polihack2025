@@ -55,7 +55,11 @@ const Home: React.FC = () => {
     const getPromotedEvent = async () => {
         try {
             console.log(`${API_URL}/api/events/promotedEvents`); // Log the full URL
-            const response = await axios.get(`${API_URL}/api/events/promotedEvents`);
+            const response = await axios.get(`${API_URL}/api/events/promotedEvents`, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                  }
+            });
             console.log(response.data);
             setPromotedEvents(response.data);
         } catch (error) {
