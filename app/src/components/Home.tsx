@@ -23,27 +23,27 @@ const Home: React.FC = () => {
         }
     };
 
-    const [word, setWord] = useState<string>('');
-    const [words, setWords] = useState<{ id: string; text: string }[]>([]);
+    // const [word, setWord] = useState<string>('');
+    // const [words, setWords] = useState<{ id: string; text: string }[]>([]);
 
-    const fetchWords = async () => {
-        const response = await axios.get(`${API_URL}/getWords`);
-        // console.log(response.data);
-        setWords(response.data.map((w: any) => ({ id: w.id, text: w.text })));
-    }
+    // const fetchWords = async () => {
+    //     const response = await axios.get(`${API_URL}/getWords`);
+    //     // console.log(response.data);
+    //     setWords(response.data.map((w: any) => ({ id: w.id, text: w.text })));
+    // }
 
-    const addWord = async () => {
-        if(!word.trim()) {
-            return;
-        }
-        await axios.post(`${API_URL}/addWord`, { word });
-        setWord('');
-        fetchWords();
-    }
+    // const addWord = async () => {
+    //     if(!word.trim()) {
+    //         return;
+    //     }
+    //     await axios.post(`${API_URL}/addWord`, { word });
+    //     setWord('');
+    //     fetchWords();
+    // }
 
-    useEffect(() => {
-        fetchWords();
-    },[])
+    // useEffect(() => {
+    //     fetchWords();
+    // },[])
 
 
     if(!user) {
