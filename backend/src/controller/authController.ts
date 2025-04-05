@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-export const googleAuth = (req: Request, res: Response): void => {
+export const googleAuth = (req: Request, res: Response):void => {
     const { name, email } = req.body;
     // console.log(req.body);
     console.log("Received user data:", name, email);
