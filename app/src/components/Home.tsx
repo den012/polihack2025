@@ -43,24 +43,15 @@ const Home: React.FC = () => {
         }
     };
 
-    // const getPromotedEvent = async () => {
-    //     try {
-    //         const response = await axios.get(`${API_URL}/api/events/promotedEvents`);
-    //         setPromotedEvents(response.data);
-    //     } catch (error) {
-    //         console.error("Error fetching promoted events: ", error);
-    //     }
-    // };
-
     const getPromotedEvent = async () => {
         try {
-            console.log(`${API_URL}/api/events/promotedEvents`); // Log the full URL
+            // console.log(`${API_URL}/api/events/promotedEvents`); // Log the full URL
             const response = await axios.get(`${API_URL}/api/events/promotedEvents`, {
                 headers: {
                     "ngrok-skip-browser-warning": "true"
                   }
             });
-            console.log(response.data);
+            // console.log(response.data);
             setPromotedEvents(response.data);
         } catch (error) {
             console.error("Error fetching promoted events: ", error);
@@ -108,7 +99,6 @@ const Home: React.FC = () => {
         <div className="bg-gradient-to-br bg-[#fbf3f3]">
             <div className="min-h-screen">
                 {/* Navigation Bar */}
-                <button className="m-10 p-8 bg-red-700" onClick={getPromotedEvent}></button>
                 <nav className="bg-white shadow-md">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-4 h-16">
@@ -152,7 +142,7 @@ const Home: React.FC = () => {
                             {/* Left-aligned message */}
                             <div className="flex items-start">
                                 <div className="bg-gray-200 text-gray-800 rounded-3xl p-3 shadow-md max-w-xs">
-                                    <p className="text-sm sm:text-base">Your <span className="font-bold">task</span> for the day is: {message}</p>
+                                    <p className="text-sm sm:text-base">Here's an idea :<span className="animate-pulse text-md font-bold"> {message}</span></p>
                                 </div>
                             </div>
 
@@ -175,6 +165,7 @@ const Home: React.FC = () => {
                                 {promotedEvents.length > 0 && (
                                     <>
                                     <div className="md:flex-1 p-8 flex flex-col justify-center">
+                                        <h1 className="text-4xl font-extrabold mb-6">Featured Event🔥</h1>
                                         <h2 className="text-3xl font-bold text-gray-800 mb-4">{promotedEvents[currentEventIndex].name}</h2>
                                         <p className="text-gray-600 mb-6">{promotedEvents[currentEventIndex].description}</p>
                                         <button
@@ -185,7 +176,7 @@ const Home: React.FC = () => {
                                     </div>
                                     <div className="md:flex-1">
                                         <img
-                                            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                                            src={promotedEvents[currentEventIndex].image}
                                             alt="Health Events"
                                             className="h-64 w-full object-cover md:h-full" />
                                     </div>

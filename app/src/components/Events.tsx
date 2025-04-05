@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import { Event, Category } from '../types/interfaces';
+
+
 
 const Events: React.FC = () => {
     const API_URL = import.meta.env.VITE_API_URL;
@@ -11,29 +14,6 @@ const Events: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
-
-    // const fetchEvents = async (categoryName?: string) => {
-    //     try {
-    //         const url = categoryName
-    //             ? `${API_URL}/api/events/eventsByCategory/${categoryName}`
-    //             : `${API_URL}/api/events/allEvents`;
-    //         const response = await axios.get(url, {
-    //             headers: {
-    //                 "ngrok-skip-browser-warning": "true"
-    //             }
-    //         });
-
-
-    //         if (!categoryName) {
-    //             setAllEvents(response.data); // Store all events when no category is selected
-    //         }
-
-    //         setEvents(response.data); // Update events for the selected category
-    //         setFilteredEvents(response.data); // Initialize filtered events
-    //     } catch (error) {
-    //         console.error("Error fetching events: ", error);
-    //     }
-    // };
 
 
     const fetchEvents = async (categoryName?: string) => {
@@ -105,6 +85,9 @@ const Events: React.FC = () => {
     };
 
 
+    
+
+
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4">Events Page</h1>
@@ -117,6 +100,7 @@ const Events: React.FC = () => {
                 onChange={handleSearch}
                 className="border p-2 mb-4 w-full max-w-md"
             />
+
 
             {/* Categories */}
             <div className="flex flex-wrap gap-3 mb-4">
@@ -177,7 +161,9 @@ const Events: React.FC = () => {
                         <p className="text-sm text-gray-600">
                             <strong>Organizer:</strong> {event.organizer}
                         </p>
-                        <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                        <button
+                            className="mt-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                        >
                             Buy Ticket
                         </button>
                     </div>

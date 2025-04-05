@@ -48,8 +48,8 @@ export const getEventsByCategory = async (req: Request, res: Response): Promise<
     try {
         const [results] = await db.query(
             `SELECT
-                Events.id AS event_id,
-                Events.name AS event_name,
+                Events.id AS id,
+                Events.name AS name,
                 Events.description,
                 Events.image,
                 Events.promoted,
