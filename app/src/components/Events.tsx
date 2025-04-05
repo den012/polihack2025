@@ -17,7 +17,11 @@ const Events: React.FC = () => {
             const url = categoryName
                 ? `${API_URL}/api/events/eventsByCategory/${categoryName}`
                 : `${API_URL}/api/events/allEvents`;
-            const response = await axios.get(url);
+            const response = await axios.get(url, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                  }
+            });
             setEvents(response.data);
         } catch (error) {
             console.error("Error fetching events: ", error);
@@ -26,7 +30,11 @@ const Events: React.FC = () => {
 
     const fetchCategory = async () => {
         try {
-            const response  = await axios.get(`${API_URL}/api/events/categories`);
+            const response  = await axios.get(`${API_URL}/api/events/categories`, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                  }
+            });
             setCategories(response.data);
             console.log(response.data);
         } catch(error) {
