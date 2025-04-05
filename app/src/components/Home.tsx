@@ -14,13 +14,10 @@ const Home: React.FC = () => {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
-    const [words, setWords] = useState<string[]>([]);
-
     const fetchWords = async () => {
         try {
             const response = await axios.get(`${API_URL}/getWords`);
             console.log(response.data);
-            setWords(response.data);
         } catch (error) {
             console.error('Error fetching words:', error);
         }
@@ -49,11 +46,6 @@ const Home: React.FC = () => {
             <h1 className="text-5xl text-orange-500">Welcome, {user?.displayName}</h1>
 
             <button onClick={fetchWords} className="bg-purple p-2 w-40 h-10 ">Fetch Words</button>
-            <div className="flex flex-col">
-                {words.map((word, index) => (
-                    <h1 key={index} className="text-2xl text-amber-700">{word}</h1>
-                ))}
-            </div>
 
             <button onClick={handleLogout} className="bg-blue-400 p-2 w-40 h-10 ">Logout</button>
 
