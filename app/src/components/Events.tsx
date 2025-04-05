@@ -32,13 +32,14 @@ const Events: React.FC = () => {
                 name: event.name || 'Unnamed Event', // Ensure name is always set
             }));
 
-    
+            const shuffledEvents = events.sort(() => Math.random() - 0.5);
+
             if (!categoryName) {
-                setAllEvents(events); // Store all events when no category is selected
+                setAllEvents(shuffledEvents); // Store all events when no category is selected
             }
     
-            setEvents(events); // Update events for the selected category
-            setFilteredEvents(events); // Initialize filtered events
+            setEvents(shuffledEvents); // Update events for the selected category
+            setFilteredEvents(shuffledEvents); // Initialize filtered events
         } catch (error) {
             console.error("Error fetching events: ", error);
         }
