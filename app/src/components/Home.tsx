@@ -43,8 +43,18 @@ const Home: React.FC = () => {
         }
     };
 
+    // const getPromotedEvent = async () => {
+    //     try {
+    //         const response = await axios.get(`${API_URL}/api/events/promotedEvents`);
+    //         setPromotedEvents(response.data);
+    //     } catch (error) {
+    //         console.error("Error fetching promoted events: ", error);
+    //     }
+    // };
+
     const getPromotedEvent = async () => {
         try {
+            console.log(`${API_URL}/api/events/promotedEvents`); // Log the full URL
             const response = await axios.get(`${API_URL}/api/events/promotedEvents`);
             setPromotedEvents(response.data);
         } catch (error) {
@@ -93,6 +103,7 @@ const Home: React.FC = () => {
         <div className="bg-gradient-to-br bg-[#fbf3f3]">
             <div className="min-h-screen">
                 {/* Navigation Bar */}
+                <button onClick={getPromotedEvent}></button>
                 <nav className="bg-white shadow-md">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-4 h-16">
