@@ -9,6 +9,7 @@ import { Request, Response } from 'express';
 import db from './database/database';
 
 import authRoutes from './routes/authRoutes';
+import eventRoutes from './routes/eventRoutes';
 
 //routes
 
@@ -21,6 +22,7 @@ const PORT = process.env.PORT;
 
 
 app.use(cors());
+<<<<<<< HEAD
   
   
 app.get('/getWords', (req, res) => {
@@ -32,6 +34,8 @@ app.get('/getWords', (req, res) => {
 });
 
   
+=======
+>>>>>>> b2d97b65524cf93f75231529793caadc9a517d23
 
 app.use(cookieParser());
 
@@ -50,6 +54,11 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 
 app.listen(PORT, () => {

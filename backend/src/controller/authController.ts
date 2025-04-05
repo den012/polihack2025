@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import db from '../database/database';
 
 export const googleAuth = (req: Request, res: Response):void => {
     const { name, email } = req.body;
