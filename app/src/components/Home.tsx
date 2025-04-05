@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
@@ -8,7 +8,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useAuth } from './hooks/useAuth';
 
 const Home: React.FC = () => {
-    const API_URL = import.meta.env.VITE_API_URL;
+    // const API_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
     const user = useAuth();
