@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
+import { useNavigate } from 'react-router-dom';
 
 import { Event, Category } from '../types/interfaces';
 
@@ -10,6 +11,7 @@ import Logo from '../assets/logo.png';
 
 const Events: React.FC = () => {
     const API_URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
     const STRIPE_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
     const stripePromise = loadStripe(STRIPE_KEY);
 
@@ -19,6 +21,7 @@ const Events: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+    const [randomEvent, setRandomEvent] = useState<Event | null>(null);
 
 
     const fetchEvents = async (categoryName?: string) => {
@@ -90,6 +93,15 @@ const Events: React.FC = () => {
         setFilteredEvents(filtered);
     };
 
+    const suggestRandomEvent = () => {
+        if (filteredEvents.length > 0) {
+            const randomIndex = Math.floor(Math.random() * filteredEvents.length);
+            setRandomEvent(filteredEvents[randomIndex]);
+        } else {
+            setRandomEvent(null); // No events to suggest
+        }
+    };
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -132,6 +144,10 @@ const Events: React.FC = () => {
         }
     };
 
+    const handleBack = () => {
+        navigate('/home');
+    }
+
     // if(filteredEvents.length === 0 || categories.length === 0) {
     //     return (
     //         <div className="flex items-center justify-center min-h-screen bg-gray-200">
@@ -149,6 +165,12 @@ const Events: React.FC = () => {
         <div className="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen py-8">
             <div className="container mx-auto px-4">
                 {/* Logo and Title */}
+                <button
+                    onClick={handleBack}
+                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200 font-semibold absolute top-4"
+                >
+                    Back
+                </button>
                 <div className="flex flex-col items-center mb-8">
                     <img src={Logo} alt="Logo" className="w-24 mb-4 -rotate-6 shadow-lg" />
                     <h1 className="text-4xl font-bold text-gray-800 text-center">
@@ -199,6 +221,51 @@ const Events: React.FC = () => {
                         </button>
                     ))}
                 </div>
+
+                <h1 className="text-center text-2xl font-bold text-gray-800 mb-4">
+                    Unsure of what to do?
+                </h1>
+                <div className="flex justify-center mb-5">
+                    <button
+                        onClick={suggestRandomEvent}
+                        className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-600 hover:shadow-lg transition-all duration-200 font-semibold"
+                    >
+                        Suggest an Event
+                    </button>
+                </div>
+
+                {randomEvent && (
+                    <div className="bg-[#f5f5f5] mb-5 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto max-w-md">
+                        <img
+                            src={randomEvent.image}
+                            alt={randomEvent.name}
+                            className="w-full h-48 object-cover"
+                        />
+                        <div className="p-4">
+                            <h2 className="text-xl font-bold text-gray-800 mb-2">
+                                {randomEvent.name}
+                            </h2>
+                            <p className="text-sm text-gray-600 mb-2">
+                                {randomEvent.description}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <strong>Date:</strong> {formatDate(randomEvent.date)}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <strong>Price:</strong> ${randomEvent.price}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <strong>Location:</strong> {randomEvent.location}
+                            </p>
+                            <button
+                                className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 hover:scale-105 transform transition-transform duration-200 w-full"
+                                onClick={() => handleBuyNow(randomEvent)}
+                            >
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Events Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
