@@ -18,7 +18,7 @@ interface Event {
 export const getAllEvents = async (req: Request, res: Response): Promise<void> => {
     try {
         const [results] = await db.query("SELECT * FROM Events")
-        console.log("All events fetched");
+        // console.log("All events fetched");
         res.json(results);
         return;
     } catch (error) {
@@ -32,7 +32,7 @@ export const getAllEvents = async (req: Request, res: Response): Promise<void> =
 export const getPromotedEvent = async (req: Request, res: Response): Promise<void> => {
     try {
         const [results] = await db.query("SELECT * FROM Events WHERE promoted = 1");
-        console.log("Promoted events fetched")
+        // console.log("Promoted events fetched")
         res.json(results);
         return;
     } catch (error) {
@@ -44,7 +44,7 @@ export const getPromotedEvent = async (req: Request, res: Response): Promise<voi
 
 export const getEventsByCategory = async (req: Request, res: Response): Promise<void> => {
     const { category }= req.params;
-    console.log(category);
+    // console.log(category);
     try {
         const [results] = await db.query(
             `SELECT
@@ -77,7 +77,7 @@ export const getEventsByCategory = async (req: Request, res: Response): Promise<
 export const getCategories = async (req: Request, res: Response): Promise<void> => {
     try {
         const [result ] = await db.query("SELECT * from Category");
-        console.log("Categories fetched");
+        // console.log("Categories fetched");
         res.json(result);
         return;
     } catch(error) {

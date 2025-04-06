@@ -128,7 +128,7 @@ const Events: React.FC = () => {
                             placeholder="Search for events..."
                             value={searchQuery}
                             onChange={handleSearch}
-                            className="w-full border-2 border-black p-3 rounded-full shadow-md focus:ring-orange-500 focus:border-orange-500 pl-12 font-bold text-xl"
+                            className="w-full border-2 border-black p-3 rounded-full shadow-md focus:ring-orange-500 focus:border-orange-500 pl-12 font-bold text-xl outline-none"
                         />
                     </div>
                 </div>
@@ -197,7 +197,7 @@ const Events: React.FC = () => {
                                         <strong>Organizer:</strong> {event.organizer}
                                     </p>
                                     <button
-                                        className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors w-32"
+                                        className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 hover:scale-105 transform transition-transform duration-200 w-32"
                                     >
                                         Buy Now
                                     </button>
