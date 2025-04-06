@@ -6,7 +6,7 @@ import Home from './components/Home';
 import Events from './components/Events';
 import Cart from './components/Cart';
 
-import Success from './components/CheckoutPages/Cancel';
+import Success from './components/CheckoutPages/Succes';
 import Cancel from './components/CheckoutPages/Cancel';
 
 

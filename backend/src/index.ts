@@ -9,6 +9,7 @@ import db from './database/database';
 
 import authRoutes from './routes/authRoutes';
 import eventRoutes from './routes/eventRoutes';
+import paymentRoutes from './routes/paymentRoutes';
 
 //routes
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/payment', paymentRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
