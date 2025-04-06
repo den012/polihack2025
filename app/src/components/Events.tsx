@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { Event, Category } from '../types/interfaces';
 
@@ -9,6 +10,8 @@ import Logo from '../assets/logo.png';
 
 const Events: React.FC = () => {
     const API_URL = import.meta.env.VITE_API_URL;
+    const STRIPE_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
+    const stripePromise = loadStripe(STRIPE_KEY);
 
     const [allEvents, setAllEvents] = useState<Event[]>([]); // State for all events
     const [events, setEvents] = useState<Event[]>([]); // State for currently displayed events
@@ -95,6 +98,34 @@ const Events: React.FC = () => {
             day: 'numeric',
         });
     }
+
+
+    const handleBuyNow = async (event: Event) => {
+        const stripe = await stripePromise;
+
+        try {
+            const response = await axios.post(`${API_URL}/api/payment/create-checkout-session`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "ngrok-skip-browser-warning": "true"
+                },
+                name: event.name,
+                price: event.price,
+            });
+
+            const data = response.data;
+            console.log("data", data);
+
+            if(data.url) {
+                window.location.href = data.url;
+            } else {
+                console.error('Error creating checkout session:', data);
+            }
+        } catch(error) {
+            console.error('Error during checkout session:', error);
+        }
+    };
 
     // if(filteredEvents.length === 0 || categories.length === 0) {
     //     return (
@@ -198,6 +229,7 @@ const Events: React.FC = () => {
                                     </p>
                                     <button
                                         className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 hover:scale-105 transform transition-transform duration-200 w-32"
+                                        onClick={() => handleBuyNow(event)}
                                     >
                                         Buy Now
                                     </button>

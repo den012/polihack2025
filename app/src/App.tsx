@@ -6,6 +6,9 @@ import Home from './components/Home';
 import Events from './components/Events';
 import Cart from './components/Cart';
 
+import Success from './components/CheckoutPages/Cancel';
+import Cancel from './components/CheckoutPages/Cancel';
+
 
 const App: React.FC = () => {
 
@@ -16,6 +19,9 @@ const App: React.FC = () => {
         <Route path='/home' element={<Home />} />
         <Route path='/events' element={<Events />} />
         <Route path='/cart' element={<Cart />} />
+
+        <Route path='/cancel' element={<Cancel />} />
+        <Route path='/success' element={<Success />} />
       </Routes>
     </Router>
   )
