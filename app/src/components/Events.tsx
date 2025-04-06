@@ -101,7 +101,7 @@ const Events: React.FC = () => {
 
 
     const handleBuyNow = async (event: Event) => {
-        const stripe = await stripePromise;
+        // const stripe = await stripePromise;
 
         try {
             const response = await axios.post(`${API_URL}/api/payment/create-checkout-session`, {
