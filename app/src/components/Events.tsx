@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { Event, Category } from '../types/interfaces';
 
+import Logo from '../assets/logo.png';
+
 
 
 const Events: React.FC = () => {
@@ -85,90 +87,130 @@ const Events: React.FC = () => {
         setFilteredEvents(filtered);
     };
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    }
 
+    // if(filteredEvents.length === 0 || categories.length === 0) {
+    //     return (
+    //         <div className="flex items-center justify-center min-h-screen bg-gray-200">
+    //             <div className="animate-pulse flex flex-col items-center">
+    //                 <div className="h-12 w-12 rounded-full border-4 border-t-orange-500 border-orange-200 animate-spin mb-4"></div>
+    //                 <p className="text-gray-600 font-medium">Loading please wait...</p>
+    //             </div>
+    //         </div>
+    //     );
+    // }
     
 
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold mb-4">Events Page</h1>
+        <div className="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen py-8">
+            <div className="container mx-auto px-4">
+                {/* Logo and Title */}
+                <div className="flex flex-col items-center mb-8">
+                    <img src={Logo} alt="Logo" className="w-24 mb-4 -rotate-6 shadow-lg" />
+                    <h1 className="text-4xl font-bold text-gray-800 text-center">
+                        Discover Amazing Events
+                    </h1>
+                </div>
 
-            {/* Search Bar */}
-            <input
-                type="text"
-                placeholder="Search events..."
-                value={searchQuery}
-                onChange={handleSearch}
-                className="border p-2 mb-4 w-full max-w-md"
-            />
-
-
-            {/* Categories */}
-            <div className="flex flex-wrap gap-3 mb-4">
-                <button
-                    className={`p-3 rounded-lg ${
-                        selectedCategory === null
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-gray-200 text-gray-800'
-                    }`}
-                    onClick={() => {
-                        setSelectedCategory(null);
-                        fetchEvents(); // Fetch all events
-                    }}
-                >
-                    All
-                </button>
-
-                {categories?.map((category) => (
-                    <button
-                        key={category.id} // Use category.id as the key
-                        onClick={() => handleCategoryClick(category.name)}
-                        className={`p-3 rounded-lg ${
-                            selectedCategory === category.name
-                                ? 'bg-blue-500 text-white'
-                                : 'bg-gray-200 text-gray-800'
-                        }`}
-                    >
-                        {category.name}
-                    </button>
-                ))}
-            </div>
-
-            {/* Events */}
-            <div className="flex flex-wrap gap-4">
-                {filteredEvents.map((event, index) => (
-                    <div
-                        key={index} // Use event.id as the key
-                        className="bg-white shadow-md rounded-lg p-4 w-64"
-                    >
-                        <h2 className="text-lg font-bold mb-2">{event?.name || 'No name'}</h2>
-                        <p className="text-sm text-gray-600 mb-2">
-                            {event.description}
-                        </p>
-                        <img
-                            src={event.image}
-                            alt={event.name}
-                            className="w-full h-32 object-cover rounded-md mb-2"
+                {/* Search Bar */}
+                <div className="flex justify-center mb-8">
+                    <div className="relative w-full max-w-lg">
+                        <input
+                            type="text"
+                            placeholder="Search for events..."
+                            value={searchQuery}
+                            onChange={handleSearch}
+                            className="w-full border-2 border-black p-3 rounded-full shadow-md focus:ring-orange-500 focus:border-orange-500 pl-12 font-bold text-xl"
                         />
-                        <p className="text-sm text-gray-600">
-                            <strong>Date:</strong> {event.date}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                            <strong>Price:</strong> ${event.price}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                            <strong>Location:</strong> {event.location}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                            <strong>Organizer:</strong> {event.organizer}
-                        </p>
-                        <button
-                            className="mt-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                        >
-                            Buy Ticket
-                        </button>
                     </div>
-                ))}
+                </div>
+
+                {/* Categories */}
+                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                    <button
+                        className={`p-3 pl-4 pr-4 rounded-full font-semibold ${
+                            selectedCategory === null
+                                ? 'bg-orange-500 text-white shadow-md'
+                                : 'bg-gray-200 text-gray-800 hover:bg-orange-200 transition-colors'
+                        }`}
+                        onClick={() => {
+                            setSelectedCategory(null);
+                            fetchEvents();
+                        }}
+                    >
+                        All
+                    </button>
+
+                    {categories?.map((category) => (
+                        <button
+                            key={category.id}
+                            onClick={() => handleCategoryClick(category.name)}
+                            className={`p-3 rounded-full font-semibold ${
+                                selectedCategory === category.name
+                                    ? 'bg-orange-500 text-white shadow-md'
+                                    : 'bg-gray-200 text-gray-800 hover:bg-orange-200 transition-colors'
+                            }`}
+                        >
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Events Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredEvents.length > 0 ? (
+                        filteredEvents.map((event, index) => (
+                            <div
+                                key={index}
+                                className="bg-[#f5f5f5] shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                            >
+                                <img
+                                    src={event.image}
+                                    alt={event.name}
+                                    className="w-full h-48 object-cover"
+                                />
+                                <div className="p-4">
+                                    <h2 className="text-xl font-bold text-gray-800 mb-2">
+                                        {event.name}
+                                    </h2>
+                                    <p className="text-sm text-gray-600 mb-2">
+                                        {event.description}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        <strong>Date:</strong> {formatDate(event.date)}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        <strong>Price:</strong> ${event.price}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        <strong>Location:</strong> {event.location}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        <strong>Organizer:</strong> {event.organizer}
+                                    </p>
+                                    <button
+                                        className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors w-32"
+                                    >
+                                        Buy Now
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="col-span-full text-center text-gray-600 font-lg">
+                            No events found with this name.
+                        </div>
+                    )}
+                </div>
+
             </div>
         </div>
     );

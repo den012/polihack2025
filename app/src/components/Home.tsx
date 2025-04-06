@@ -99,7 +99,7 @@ const Home: React.FC = () => {
         <div className="bg-gradient-to-br bg-[#fbf3f3]">
             <div className="min-h-screen">
                 {/* Navigation Bar */}
-                <nav className="bg-white shadow-md">
+                <nav className="bg-[#f5f5f5] shadow-md">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-4 h-16">
                             <div className="flex items-center">
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
                             <div>
                                 <button 
                                     onClick={handleLogout} 
-                                    className="bg-white text-gray-700 border border-gray-300 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-opacity-50 text-sm sm:text-base"
+                                    className="bg-[#f5f5f5] text-gray-700 border border-gray-300 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-opacity-50 text-sm sm:text-base"
                                 >
                                     Logout
                                 </button>
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
                 {/* Promoted event */}
                 <div className="py-12 px-4">
                     <div className="max-w-6xl mx-auto">
-                        <div className="bg-white rounded-xl shadow-lg overflow-hidden bg-opacity-90">
+                        <div className="bg-[#f5f5f5] rounded-xl shadow-lg overflow-hidden bg-opacity-90">
                             <div className="md:flex">
                                 {promotedEvents.length > 0 && (
                                     <>

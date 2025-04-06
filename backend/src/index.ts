@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import chalk from 'chalk';
 
 //database
 import db from './database/database';
@@ -32,5 +33,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log('Server is running on http://localhost:'+ chalk.green(`${PORT}`));
 })
