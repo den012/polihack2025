@@ -120,7 +120,7 @@ const Events: React.FC = () => {
             });
 
             const data = response.data;
-            console.log("data", data);
+            // console.log("data", data);
 
             if(data.url) {
                 window.location.href = data.url;

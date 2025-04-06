@@ -8,7 +8,7 @@ const Cancel: React.FC = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('/events')
-        }, 4000);
+        }, 2000);
 
         return () => {clearTimeout(timer)};
     }, []);
