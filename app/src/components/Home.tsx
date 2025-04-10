@@ -72,120 +72,52 @@ const Home: React.FC = () => {
         }
     }, [promotedEvents]);
 
-    // return (
-    //     <div className="flex flex-col m-10">
-    //         <h1 className="text-7xl text-blue-700">Home page</h1>
-    //         <h1 className="text-5xl text-orange-500">Welcome, {user?.displayName}</h1>
-
-    //         <button onClick={handleLogout} className="bg-blue-400 p-2 w-40 h-10 ">Logout</button>
-
-
-
-    //     </div>
-    // )
 
     if (!user) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-200">
-                <div className="animate-pulse flex flex-col items-center">
-                    <div className="h-12 w-12 rounded-full border-4 border-t-orange-500 border-orange-200 animate-spin mb-4"></div>
                     <p className="text-gray-600 font-medium">Loading please wait...</p>
-                </div>
             </div>
         );
     }
 
     return (
-        <div className="bg-gradient-to-br bg-[#fbf3f3]">
+        <div className="">
             <div className="min-h-screen">
-                {/* Navigation Bar */}
-                <nav className="bg-[#f5f5f5] shadow-md">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between items-center py-4 h-16">
-                            <div className="flex items-center">
-                                <img 
-                                    src={Logo}
-                                    alt="Logo" 
-                                    className="w-[40px] sm:w-[150px] md:w-[80px] lg:w-[70px] h-auto mr-2 -rotate-4"      
-                                />
-                            </div>
-                            <div>
-                                <button 
-                                    onClick={handleLogout} 
-                                    className="bg-[#f5f5f5] text-gray-700 border border-gray-300 px-3 py-1 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-opacity-50 text-sm sm:text-base"
-                                >
-                                    Logout
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                <img 
+                    src={Logo}
+                    alt="Logo" 
+                    className="w-[60px]"      
+                />
+                <button 
+                    onClick={handleLogout} 
+                >
+                    Logout
+                </button>
 
-                {/* Welcome Banner - New section */}
-                <div className="py-4 sm:py-6">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center">
-                            <div className="flex flex-col">
-                                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-                                    Hello, <span className="text-orange-600">{user?.displayName || 'Guest'}</span>!
-                                </h1>
-                                <p className="mt-2 text-gray-600 text-sm sm:text-base">
-                                    Welcome to your personalized health events dashboard
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1 className="">
+                    Hello, {user?.displayName || 'Guest'}!
+                </h1>
 
-                <div className="flex flex-col items-center justify-center mt-6 space-y-4">
-                    <div className="flex flex-col space-y-3 w-full max-w-md">
-                            {/* Left-aligned message */}
-                            <div className="flex items-start">
-                                <div className="bg-gray-200 text-gray-800 rounded-3xl p-3 shadow-md max-w-xs">
-                                    <p className="text-sm sm:text-base">Here's an idea :<span className="animate-pulse text-md font-bold"> {message}</span></p>
-                                </div>
-                            </div>
+                <p className="">Here's an idea :<span className="text-blue-600"> {message}</span></p>
 
-                            {/* Right-aligned message */}
-                            <div className="flex items-end justify-end">
-                                <div className="bg-blue-500 text-white rounded-3xl p-3 shadow-md max-w-xs">
-                                    <p className="text-sm sm:text-base">On it, I'll find a spot in my schedule</p>
-                                </div>
-                            </div>
+                {promotedEvents.length > 0 && (
+                    <>
 
-                    </div>
-                </div>
-
-
-                {/* Promoted event */}
-                <div className="py-12 px-4">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="bg-[#f5f5f5] rounded-xl shadow-lg overflow-hidden bg-opacity-90">
-                            <div className="md:flex">
-                                {promotedEvents.length > 0 && (
-                                    <>
-                                    <div className="md:flex-1 p-8 flex flex-col justify-center">
-                                        <h1 className="text-4xl font-extrabold mb-6">Featured Event🔥</h1>
-                                        <h2 className="text-3xl font-bold text-gray-800 mb-4">{promotedEvents[currentEventIndex].name}</h2>
-                                        <p className="text-gray-600 mb-6">{promotedEvents[currentEventIndex].description}</p>
-                                        <button
-                                            className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-200 shadow-md self-start focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-opacity-50"
-                                            onClick={() => navigate('/events')}>
-                                            Browse All Events
-                                        </button>
-                                    </div>
-                                    <div className="md:flex-1">
-                                        <img
-                                            src={promotedEvents[currentEventIndex].image}
-                                            alt="Health Events"
-                                            className="h-64 w-full object-cover md:h-full" />
-                                    </div>
-                                    </> 
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <h1 className="text-xl">Featured Event🔥</h1>
+                        <h2 className="text-xl">{promotedEvents[currentEventIndex].name}</h2>
+                        <p className="text-gray-600">{promotedEvents[currentEventIndex].description}</p>
+                        <button
+                            className="bg-green-600"
+                            onClick={() => navigate('/events')}>
+                            Browse All Events
+                        </button>
+                        <img
+                            src={promotedEvents[currentEventIndex].image}
+                            alt="Health Events"
+                            className="h-64 w-64" />
+                    </> 
+                )}
 
             </div>
         </div>

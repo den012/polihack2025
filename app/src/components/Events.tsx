@@ -162,103 +162,73 @@ const Events: React.FC = () => {
 
 
     return (
-        <div className="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen py-8">
-            <div className="container mx-auto px-4">
+        <div className="">
+            <div className="">
                 {/* Logo and Title */}
                 <button
                     onClick={handleBack}
-                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-200 font-semibold absolute top-4"
                 >
                     Back
                 </button>
-                <div className="flex flex-col items-center mb-8">
-                    <img src={Logo} alt="Logo" className="w-24 mb-4 -rotate-6 shadow-lg" />
-                    <h1 className="text-4xl font-bold text-gray-800 text-center">
-                        Discover Amazing Events
-                    </h1>
-                </div>
+                <img src={Logo} alt="Logo" className="w-24" />
 
-                {/* Search Bar */}
-                <div className="flex justify-center mb-8">
-                    <div className="relative w-full max-w-lg">
-                        <input
-                            type="text"
-                            placeholder="Search for events..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                            className="w-full border-2 border-black p-3 rounded-full shadow-md focus:ring-orange-500 focus:border-orange-500 pl-12 font-bold text-xl outline-none"
-                        />
-                    </div>
-                </div>
+                <input
+                    type="text"
+                    placeholder="Search for events..."
+                    className="border border-black"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                />
+
 
                 {/* Categories */}
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <button
+                    onClick={() => {
+                        setSelectedCategory(null);
+                        fetchEvents();
+                    }}>All
+                </button>
+
+                {categories?.map((category) => (
                     <button
-                        className={`p-3 pl-4 pr-4 rounded-full font-semibold ${
-                            selectedCategory === null
-                                ? 'bg-orange-500 text-white shadow-md'
-                                : 'bg-gray-200 text-gray-800 hover:bg-orange-200 transition-colors'
-                        }`}
-                        onClick={() => {
-                            setSelectedCategory(null);
-                            fetchEvents();
-                        }}
-                    >
-                        All
+                        key={category.id}
+                        onClick={() => handleCategoryClick(category.name)}
+                    >{category.name}
                     </button>
+                ))}
 
-                    {categories?.map((category) => (
-                        <button
-                            key={category.id}
-                            onClick={() => handleCategoryClick(category.name)}
-                            className={`p-3 rounded-full font-semibold ${
-                                selectedCategory === category.name
-                                    ? 'bg-orange-500 text-white shadow-md'
-                                    : 'bg-gray-200 text-gray-800 hover:bg-orange-200 transition-colors'
-                            }`}
-                        >
-                            {category.name}
-                        </button>
-                    ))}
-                </div>
-
-                <h1 className="text-center text-2xl font-bold text-gray-800 mb-4">
-                    Unsure of what to do?
-                </h1>
-                <div className="flex justify-center mb-5">
+                <h1 className="">Unsure of what to do?</h1>
                     <button
                         onClick={suggestRandomEvent}
-                        className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-600 hover:shadow-lg transition-all duration-200 font-semibold"
-                    >
-                        Suggest an Event
+                        className="bg-blue-300"
+                    >Suggest an Event
                     </button>
-                </div>
 
                 {randomEvent && (
-                    <div className="bg-[#f5f5f5] mb-5 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mx-auto max-w-md">
+                    <div className="">
                         <img
                             src={randomEvent.image}
                             alt={randomEvent.name}
-                            className="w-full h-48 object-cover"
+                            className="w-48 h-48 object-cover"
                         />
                         <div className="p-4">
-                            <h2 className="text-xl font-bold text-gray-800 mb-2">
+                            <h2>
                                 {randomEvent.name}
                             </h2>
-                            <p className="text-sm text-gray-600 mb-2">
+                            <p>
                                 {randomEvent.description}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p>
                                 <strong>Date:</strong> {formatDate(randomEvent.date)}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p >
                                 <strong>Price:</strong> ${randomEvent.price}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p >
                                 <strong>Location:</strong> {randomEvent.location}
                             </p>
                             <button
-                                className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 hover:scale-105 transform transition-transform duration-200 w-full"
+                                className="bg-red-400"
                                 onClick={() => handleBuyNow(randomEvent)}
                             >
                                 Buy Now
@@ -268,52 +238,49 @@ const Events: React.FC = () => {
                 )}
 
                 {/* Events Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredEvents.length > 0 ? (
-                        filteredEvents.map((event, index) => (
-                            <div
-                                key={index}
-                                className="bg-[#f5f5f5] shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                            >
-                                <img
-                                    src={event.image}
-                                    alt={event.name}
-                                    className="w-full h-48 object-cover"
-                                />
-                                <div className="p-4">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-2">
-                                        {event.name}
-                                    </h2>
-                                    <p className="text-sm text-gray-600 mb-2">
-                                        {event.description}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <strong>Date:</strong> {formatDate(event.date)}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <strong>Price:</strong> ${event.price}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <strong>Location:</strong> {event.location}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        <strong>Organizer:</strong> {event.organizer}
-                                    </p>
-                                    <button
-                                        className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 hover:scale-105 transform transition-transform duration-200 w-32"
-                                        onClick={() => handleBuyNow(event)}
-                                    >
-                                        Buy Now
-                                    </button>
-                                </div>
+                {filteredEvents.length > 0 ? (
+                    filteredEvents.map((event, index) => (
+                        <div
+                            key={index}
+                        >
+                            <img
+                                src={event.image}
+                                alt={event.name}
+                                className="w-48 h-48 object-cover"
+                            />
+                            <div className="p-4">
+                                <h2>
+                                    {event.name}
+                                </h2>
+                                <p>
+                                    {event.description}
+                                </p>
+                                <p>
+                                    <strong>Date:</strong> {formatDate(event.date)}
+                                </p>
+                                <p >
+                                    <strong>Price:</strong> ${event.price}
+                                </p>
+                                <p>
+                                    <strong>Location:</strong> {event.location}
+                                </p>
+                                <p>
+                                    <strong>Organizer:</strong> {event.organizer}
+                                </p>
+                                <button
+                                    className="bg-purple-700"
+                                    onClick={() => handleBuyNow(event)}
+                                >
+                                    Buy Now
+                                </button>
                             </div>
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center text-gray-600 font-lg">
-                            No events found with this name.
                         </div>
-                    )}
-                </div>
+                    ))
+                ) : (
+                    <div>
+                        No events found with this name.
+                    </div>
+                )}
 
             </div>
         </div>
