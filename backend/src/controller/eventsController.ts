@@ -87,3 +87,23 @@ export const getCategories = async (req: Request, res: Response): Promise<void> 
     }
 }
 
+export const getTickets = async (req: Request, res: Response): Promise<void> => {
+    const { user_id } = req.body;
+    ///test ddetA5K265aPvo6YHVKOZyahaOR2
+    try {
+        const [result] = await db.query(
+            `SELECT Events.name, Events.date, Events.organizer FROM Tickets
+            JOIN Events on Tickets.event_id = Events.id
+            WHERE Tickets.user_id = ?`,
+            [user_id]
+        );
+        // console.log(result);
+        res.json(result);
+        return;
+    } catch(error) {
+        console.error("Error fetching tickets: ", error);
+        res.status(500).json({ error: "Internal server error" });
+        return;
+    }
+}
+
