@@ -21,37 +21,13 @@ CREATE TABLE `Events` (
 CREATE TABLE `User` (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255),
-    email VARCHAR(255)
+    email VARCHAR(255),
+    photo VARCHAR(255),
 );
 
-CREATE TABLE `Cart` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(50) DEFAULT 'active',
-    FOREIGN KEY (user_id) REFERENCES `User`(id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
-);
 
---- no user
-CREATE TABLE `Cart` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cart_id VARCHAR(255) NOT NULL UNIQUE, -- Unique identifier for the cart
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(50) DEFAULT 'active'
-);
 
-CREATE TABLE `CartItem` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cart_id INT NOT NULL,
-    event_id INT NOT NULL,
-    quantity INT,
-    price FLOAT,
-    FOREIGN KEY (cart_id) REFERENCES `Cart`(id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (event_id) REFERENCES `Events`(id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
-);
+
 
 
 INSERT INTO `Events` (name, description, image, promoted, date, price, location, organizer, category_id) VALUES
